@@ -25,34 +25,24 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-image: linear-gradient(135deg, rgba(120, 47, 64, 0.05) 0%, rgba(206, 184, 136, 0.05) 100%);
         }
         .event-card {
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s;
         }
         .event-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(120, 47, 64, 0.1), 0 2px 4px -1px rgba(120, 47, 64, 0.06);
-        }
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #1a1a1a;
-                color: #ffffff;
-                background-image: linear-gradient(135deg, rgba(120, 47, 64, 0.15) 0%, rgba(206, 184, 136, 0.15) 100%);
-            }
         }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="bg-gray-50">
     <div class="max-w-6xl mx-auto p-4">
-        <!-- FSU Logo Banner -->
-        <div class="bg-fsu-garnet text-white py-3 px-6 rounded-lg mb-6 shadow-lg">
-            <div class="flex items-center justify-between">
+        <div class="bg-fsu-garnet text-white py-6 px-6 rounded-lg mb-6 shadow-lg">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold mb-1">Callie Reid</h1>
+                    <h1 class="text-3xl font-bold mb-2">Callie Reid</h1>
                     <h2 class="text-fsu-gold text-xl">Department of Mathematics</h2>
                 </div>
-                <div class="text-right">
+                <div class="mt-4 md:mt-0 text-right">
                     <div class="text-fsu-gold text-lg font-mono" id="clock"></div>
                     <div class="text-sm mt-1">Spring 2025</div>
                 </div>
@@ -60,168 +50,66 @@
         </div>
 
         <div class="flex flex-wrap justify-center gap-2 mb-6" id="dayButtons">
-            <button class="px-4 py-2 rounded bg-fsu-garnet text-white hover:bg-fsu-garnet-dark transition-colors" onclick="showDay('Monday')">Monday</button>
-            <button class="px-4 py-2 rounded bg-gray-200 text-fsu-garnet hover:bg-fsu-gold hover:text-fsu-garnet transition-colors" onclick="showDay('Tuesday')">Tuesday</button>
-            <button class="px-4 py-2 rounded bg-gray-200 text-fsu-garnet hover:bg-fsu-gold hover:text-fsu-garnet transition-colors" onclick="showDay('Wednesday')">Wednesday</button>
-            <button class="px-4 py-2 rounded bg-gray-200 text-fsu-garnet hover:bg-fsu-gold hover:text-fsu-garnet transition-colors" onclick="showDay('Thursday')">Thursday</button>
-            <button class="px-4 py-2 rounded bg-gray-200 text-fsu-garnet hover:bg-fsu-gold hover:text-fsu-garnet transition-colors" onclick="showDay('Friday')">Friday</button>
+            <button class="px-4 py-2 rounded bg-fsu-garnet text-white" onclick="showDay('Monday')">Monday</button>
+            <button class="px-4 py-2 rounded bg-gray-200 text-gray-700" onclick="showDay('Tuesday')">Tuesday</button>
+            <button class="px-4 py-2 rounded bg-gray-200 text-gray-700" onclick="showDay('Wednesday')">Wednesday</button>
+            <button class="px-4 py-2 rounded bg-gray-200 text-gray-700" onclick="showDay('Thursday')">Thursday</button>
+            <button class="px-4 py-2 rounded bg-gray-200 text-gray-700" onclick="showDay('Friday')">Friday</button>
         </div>
 
         <div id="scheduleContainer" class="space-y-4"></div>
 
-        <footer class="mt-8 text-center text-fsu-garnet dark:text-fsu-gold">
-            <p>Florida State University</p>
+        <footer class="mt-8 text-center text-fsu-garnet">
+            <p class="font-semibold">Florida State University</p>
             <p class="text-sm mt-1">Teaching Assistant - 50% assignment with CARE SLS class supporting MAC1105</p>
         </footer>
     </div>
 
-     <script>
+    <script>
         const schedule = {
             Monday: [
-                {
-                    time: '8:00-8:50',
-                    type: 'Class',
-                    course: 'MAT5941-01',
-                    location: 'HCB',
-                    details: 'Your Class'
-                },
-                {
-                    time: '10:40-11:30',
-                    type: 'TA Duty',
-                    course: 'SLS1010L',
-                    location: 'BEL 0004',
-                    role: 'Grader (0.25FTE - CARE)',
-                    colleagues: ['TA Sheaib']
-                },
-                {
-                    time: '12:00-12:50',
-                    type: 'TA Duty',
-                    course: 'MAC1105 Lect 21',
-                    location: 'HWC2100',
-                    role: 'Proctor',
-                    colleagues: ['TA Sheaib']
-                },
-                {
-                    time: '1:20-2:10',
-                    type: 'Class',
-                    course: 'MAP5423-01',
-                    location: 'LOV',
-                    details: 'Your Class'
-                }
+                { time: '8:00-8:50', type: 'Class', course: 'MAT5941-01', location: 'HCB', details: 'Your Class' },
+                { time: '10:40-11:30', type: 'TA Duty', course: 'SLS1010L', location: 'BEL 0004', role: 'Grader (0.25FTE - CARE)', colleagues: ['TA Sheaib'] },
+                { time: '12:00-12:50', type: 'TA Duty', course: 'MAC1105 Lect 21', location: 'HWC2100', role: 'Proctor', colleagues: ['TA Sheaib'] },
+                { time: '1:20-2:10', type: 'Class', course: 'MAP5423-01', location: 'LOV', details: 'Your Class' }
             ],
             Tuesday: [
-                {
-                    time: '11:35-12:50',
-                    type: 'Class',
-                    course: 'MAP5932-01',
-                    location: 'LOV',
-                    details: 'Your Class'
-                },
-                {
-                    time: '1:20-2:35',
-                    type: 'Class',
-                    course: 'MAP5346-01',
-                    location: 'LOV',
-                    details: 'Your Class'
-                },
-                {
-                    time: '3:05-3:55',
-                    type: 'TA Duty',
-                    course: 'MAC1105 Lab 22',
-                    location: '104HTL',
-                    role: 'Proctor',
-                    colleagues: ['TA Sheaib']
-                },
-                {
-                    time: '4:50-5:40',
-                    type: 'TA Duty',
-                    course: 'MAC1105 Lab 26',
-                    location: '104HTL',
-                    role: 'Proctor',
-                    colleagues: ['TA Sheaib']
-                }
+                { time: '11:35-12:50', type: 'Class', course: 'MAP5932-01', location: 'LOV', details: 'Your Class' },
+                { time: '1:20-2:35', type: 'Class', course: 'MAP5346-01', location: 'LOV', details: 'Your Class' },
+                { time: '3:05-3:55', type: 'TA Duty', course: 'MAC1105 Lab 22', location: '104HTL', role: 'Proctor', colleagues: ['TA Sheaib'] },
+                { time: '4:50-5:40', type: 'TA Duty', course: 'MAC1105 Lab 26', location: '104HTL', role: 'Proctor', colleagues: ['TA Sheaib'] }
             ],
             Wednesday: [
-                {
-                    time: '8:00-8:50',
-                    type: 'Class',
-                    course: 'MAT5941-01',
-                    location: 'HCB',
-                    details: 'Your Class'
-                },
-                {
-                    time: '12:00-12:50',
-                    type: 'TA Duty',
-                    course: 'MAC1105 Lect 21',
-                    location: 'HWC2100',
-                    role: 'Proctor',
-                    colleagues: ['TA Sheaib']
-                },
-                {
-                    time: '1:20-2:10',
-                    type: 'Class',
-                    course: 'MAP5423-01',
-                    location: 'LOV',
-                    details: 'Your Class'
-                },
-                {
-                    time: '3:05-4:20',
-                    type: 'Class',
-                    course: 'MAP6939-02',
-                    location: 'LOV',
-                    details: 'Your Class'
-                }
+                { time: '8:00-8:50', type: 'Class', course: 'MAT5941-01', location: 'HCB', details: 'Your Class' },
+                { time: '12:00-12:50', type: 'TA Duty', course: 'MAC1105 Lect 21', location: 'HWC2100', role: 'Proctor', colleagues: ['TA Sheaib'] },
+                { time: '1:20-2:10', type: 'Class', course: 'MAP5423-01', location: 'LOV', details: 'Your Class' },
+                { time: '3:05-4:20', type: 'Class', course: 'MAP6939-02', location: 'LOV', details: 'Your Class' }
             ],
             Thursday: [
-                {
-                    time: '11:35-12:50',
-                    type: 'Class',
-                    course: 'MAP5932-01',
-                    location: 'LOV',
-                    details: 'Your Class'
-                },
-                {
-                    time: '1:20-2:35',
-                    type: 'Class',
-                    course: 'MAP5346-01',
-                    location: 'LOV',
-                    details: 'Your Class'
-                }
+                { time: '11:35-12:50', type: 'Class', course: 'MAP5932-01', location: 'LOV', details: 'Your Class' },
+                { time: '1:20-2:35', type: 'Class', course: 'MAP5346-01', location: 'LOV', details: 'Your Class' }
             ],
             Friday: [
-                {
-                    time: '8:00-8:50',
-                    type: 'Class',
-                    course: 'MAT5941-01',
-                    location: 'HCB',
-                    details: 'Your Class'
-                },
-                {
-                    time: '1:20-2:10',
-                    type: 'Class',
-                    course: 'MAP5423-01',
-                    location: 'LOV',
-                    details: 'Your Class'
-                }
+                { time: '8:00-8:50', type: 'Class', course: 'MAT5941-01', location: 'HCB', details: 'Your Class' },
+                { time: '1:20-2:10', type: 'Class', course: 'MAP5423-01', location: 'LOV', details: 'Your Class' }
             ]
         };
 
         function updateClock() {
             const now = new Date();
-            const clockElement = document.getElementById('clock');
-            clockElement.textContent = now.toLocaleTimeString() + ' - ' + now.toLocaleDateString();
+            document.getElementById('clock').textContent = now.toLocaleTimeString() + ' - ' + now.toLocaleDateString();
         }
 
         setInterval(updateClock, 1000);
         updateClock();
 
         function showDay(day) {
-            const buttons = document.querySelectorAll('#dayButtons button');
-            buttons.forEach(button => {
+            // Update button styles
+            document.querySelectorAll('#dayButtons button').forEach(button => {
                 if (button.textContent === day) {
-                    button.className = 'px-4 py-2 rounded bg-fsu-garnet text-white hover:bg-fsu-garnet-dark transition-colors';
+                    button.className = 'px-4 py-2 rounded bg-fsu-garnet text-white';
                 } else {
-                    button.className = 'px-4 py-2 rounded bg-gray-200 text-fsu-garnet hover:bg-fsu-gold hover:text-fsu-garnet transition-colors';
+                    button.className = 'px-4 py-2 rounded bg-gray-200 text-gray-700';
                 }
             });
 
@@ -229,48 +117,28 @@
             const daySchedule = schedule[day];
 
             if (!daySchedule || daySchedule.length === 0) {
-                container.innerHTML = '<div class="text-center text-fsu-garnet dark:text-fsu-gold py-8">No events scheduled for ' + day + '</div>';
+                container.innerHTML = '<div class="text-center text-gray-500 py-8">No events scheduled for ' + day + '</div>';
                 return;
             }
 
-            container.innerHTML = daySchedule.map((event) => `
-                <div class="event-card p-4 rounded-lg shadow-md ${event.type === 'Class' ? 'bg-white border-l-4 border-fsu-garnet' : 'bg-white border-l-4 border-fsu-gold'} dark:bg-gray-800">
+            container.innerHTML = daySchedule.map(event => `
+                <div class="event-card p-4 rounded-lg shadow-md bg-white border-l-4 ${event.type === 'Class' ? 'border-fsu-garnet' : 'border-fsu-gold'}">
                     <div class="flex items-center justify-between mb-2">
-                        <span class="text-lg font-semibold ${event.type === 'Class' ? 'text-fsu-garnet' : 'text-fsu-garnet'}">${event.course}</span>
+                        <span class="text-lg font-semibold text-fsu-garnet">${event.course}</span>
                         <span class="px-3 py-1 rounded text-sm ${event.type === 'Class' ? 'bg-fsu-garnet text-white' : 'bg-fsu-gold text-fsu-garnet'}">${event.type}</span>
                     </div>
-                    <div class="space-y-1 text-gray-700 dark:text-gray-300">
-                        <div class="flex items-center">
-                            <strong class="min-w-24">Time:</strong> 
-                            <span>${event.time}</span>
-                        </div>
-                        <div class="flex items-center">
-                            <strong class="min-w-24">Location:</strong> 
-                            <span>${event.location}</span>
-                        </div>
-                        ${event.details ? `
-                            <div class="flex items-center">
-                                <strong class="min-w-24">Details:</strong> 
-                                <span>${event.details}</span>
-                            </div>
-                        ` : ''}
-                        ${event.role ? `
-                            <div class="flex items-center">
-                                <strong class="min-w-24">Role:</strong> 
-                                <span>${event.role}</span>
-                            </div>
-                        ` : ''}
-                        ${event.colleagues ? `
-                            <div class="flex items-center">
-                                <strong class="min-w-24">Colleagues:</strong> 
-                                <span>${event.colleagues.join(', ')}</span>
-                            </div>
-                        ` : ''}
+                    <div class="space-y-2 text-gray-700">
+                        <div><strong>Time:</strong> ${event.time}</div>
+                        <div><strong>Location:</strong> ${event.location}</div>
+                        ${event.details ? `<div><strong>Details:</strong> ${event.details}</div>` : ''}
+                        ${event.role ? `<div><strong>Role:</strong> ${event.role}</div>` : ''}
+                        ${event.colleagues ? `<div><strong>Colleagues:</strong> ${event.colleagues.join(', ')}</div>` : ''}
                     </div>
                 </div>
             `).join('');
         }
 
+        // Show Monday schedule by default
         showDay('Monday');
     </script>
 </body>
