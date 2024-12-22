@@ -104,41 +104,35 @@
         updateClock();
 
         function showDay(day) {
-            // Update button styles
             document.querySelectorAll('#dayButtons button').forEach(button => {
-                if (button.textContent === day) {
-                    button.className = 'px-4 py-2 rounded bg-fsu-garnet text-white';
-                } else {
-                    button.className = 'px-4 py-2 rounded bg-gray-200 text-gray-700';
-                }
+                button.classList.toggle('bg-fsu-garnet', button.textContent === day);
+                button.classList.toggle('text-white', button.textContent === day);
+                button.classList.toggle('bg-gray-200', button.textContent !== day);
+                button.classList.toggle('text-gray-700', button.textContent !== day);
             });
 
             const container = document.getElementById('scheduleContainer');
-            const daySchedule = schedule[day];
+            const daySchedule = schedule[day] || [];
 
-            if (!daySchedule || daySchedule.length === 0) {
-                container.innerHTML = '<div class="text-center text-gray-500 py-8">No events scheduled for ' + day + '</div>';
-                return;
-            }
-
-            container.innerHTML = daySchedule.map(event => `
-                <div class="event-card p-4 rounded-lg shadow-md bg-white border-l-4 ${event.type === 'Class' ? 'border-fsu-garnet' : 'border-fsu-gold'}">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-lg font-semibold text-fsu-garnet">${event.course}</span>
-                        <span class="px-3 py-1 rounded text-sm ${event.type === 'Class' ? 'bg-fsu-garnet text-white' : 'bg-fsu-gold text-fsu-garnet'}">${event.type}</span>
+            container.innerHTML = daySchedule.length
+                ? daySchedule.map(event => `
+                    <div class="event-card p-4 rounded-lg shadow-md bg-white border-l-4 ${event.type === 'Class' ? 'border-fsu-garnet' : 'border-fsu-gold'}">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-lg font-semibold text-fsu-garnet">${event.course}</span>
+                            <span class="px-3 py-1 rounded text-sm ${event.type === 'Class' ? 'bg-fsu-garnet text-white' : 'bg-fsu-gold text-fsu-garnet'}">${event.type}</span>
+                        </div>
+                        <div class="space-y-2 text-gray-700">
+                            <div><strong>Time:</strong> ${event.time}</div>
+                            <div><strong>Location:</strong> ${event.location}</div>
+                            ${event.details ? `<div><strong>Details:</strong> ${event.details}</div>` : ''}
+                            ${event.role ? `<div><strong>Role:</strong> ${event.role}</div>` : ''}
+                            ${event.colleagues ? `<div><strong>Colleagues:</strong> ${event.colleagues.join(', ')}</div>` : ''}
+                        </div>
                     </div>
-                    <div class="space-y-2 text-gray-700">
-                        <div><strong>Time:</strong> ${event.time}</div>
-                        <div><strong>Location:</strong> ${event.location}</div>
-                        ${event.details ? `<div><strong>Details:</strong> ${event.details}</div>` : ''}
-                        ${event.role ? `<div><strong>Role:</strong> ${event.role}</div>` : ''}
-                        ${event.colleagues ? `<div><strong>Colleagues:</strong> ${event.colleagues.join(', ')}</div>` : ''}
-                    </div>
-                </div>
-            `).join('');
+                `).join('')
+                : '<div class="text-center text-gray-500 py-8">No events scheduled for ' + day + '</div>';
         }
 
-        // Show Monday schedule by default
         showDay('Monday');
     </script>
 </body>
